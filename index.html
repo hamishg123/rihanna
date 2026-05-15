@@ -1110,32 +1110,32 @@
                 text: "The way you care about others, the way you light up when you help someone—it makes me fall in love with you all over again. Your heart is pure gold."
             },
             {
-                title: "Your Dreams",
+                title: "Your Storys",
                 emoji: "🌟",
-                text: "I believe in your dreams as much as I believe in my love for you. I'm here to support you, celebrate with you, and be your biggest cheerleader."
+                text: "67 mango mango mango 67 phonk and i love listening to all your storys even when you have already told me then before lol"
             },
             {
                 title: "Your Imperfections",
                 emoji: "💖",
-                text: "You're not perfect, and neither am I. But your imperfections are what make you perfectly you. I love every single part of you, flaws and all."
+                text: "your imperfections are what make you perfectly you. I love every single part of you. even your silly qwrirks :p"
             },
             {
-                title: "Late Night Thoughts",
+                title: "Early Morning Thoughts",
                 emoji: "🌙",
-                text: "At 3 AM, when the world is quiet, I think about you. About our future, our memories, and how lucky I am to have found someone like you."
+                text: "At 7 AM, when the world is quiet and your not awake yet, I think about you. About our future, our memories, and how lucky I am to have found someone like you."
             },
             {
                 title: "Forever Promise",
                 emoji: "🏠",
-                text: "I promise to love you through every season of life. Through the good days and the hard days, I'll be here. You're not just my love—you're my home."
+                text: "I promise to love you through every season of life. Through the good days and the hard days, I'll be here. You're not just my love—you're my everything."
             }
         ];
 
         const responses = [
             "I love you {num} times more than that.",
             "That's a beautiful number, but I love you {num * 2} times more.",
-            "{num}? I love you infinitely more than that.",
-            "If that's how much you love me, I love you {num + 1000} times more.",
+            "only {num}? I love you infinitely more than that.",
+            "If that's how much you love me, I love you {num + 1} times more.",
             "No matter the number, my love for you is beyond measure - at least {num * 100} times more.",
             "That's sweet, but I love you {Math.floor(num * 1.5)} times more than that.",
             "Every moment with you makes me love you {num + 999999} times more.",
@@ -1157,10 +1157,13 @@
         function compareLove() {
             const input = document.getElementById('loveNumber').value;
             if (!input || isNaN(input)) {
-                alert('Please enter a valid number');
+                alert('Enter a Number you bad girl!!!');
                 return;
             }
-
+            if (input == 67){
+                alert('67 67 67 six seven 6-7 mango mustard!!');
+            }
+                
             const num = parseFloat(input);
             const randomResponse = responses[Math.floor(Math.random() * responses.length)];
             let result = randomResponse.replace('{num}', num);
