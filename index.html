@@ -546,6 +546,20 @@
             color: rgba(107, 62, 62, 0.7);
         }
 
+        .gallery-item.photo-item {
+            padding: 0;
+            background: none;
+            border: 3px solid #D4A574;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(212, 165, 116, 0.15);
+        }
+
+        .gallery-item.photo-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(212, 165, 116, 0.3);
+        }
+
         /* Footer */
         footer {
             background: rgba(245, 230, 224, 0.5);
@@ -1022,49 +1036,13 @@
 
         <!-- Gallery -->
         <div id="gallery" class="content-section">
-            <h2 class="section-title">🎨 Gallery of Love</h2>
-            <p class="section-subtitle">A collection of the things that make me fall in love with you every single day</p>
+            <h2 class="section-title">📸 Our Beautiful Memories</h2>
+            <p class="section-subtitle">Beautiful memories we've created together</p>
             
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <div class="gallery-emoji">😊</div>
-                    <h3>Your Smile</h3>
-                    <p>The most beautiful thing I see every day</p>
-                </div>
-                <div class="gallery-item">
-                    <div class="gallery-emoji">👀</div>
-                    <h3>Your Eyes</h3>
-                    <p>Windows to a soul I love deeply</p>
-                </div>
-                <div class="gallery-item">
-                    <div class="gallery-emoji">😄</div>
-                    <h3>Your Laugh</h3>
-                    <p>Music that makes my heart dance</p>
-                </div>
-                <div class="gallery-item">
-                    <div class="gallery-emoji">🤗</div>
-                    <h3>Your Touch</h3>
-                    <p>Comfort and safety in your arms</p>
-                </div>
-                <div class="gallery-item">
-                    <div class="gallery-emoji">🌟</div>
-                    <h3>Your Dreams</h3>
-                    <p>I believe in every single one</p>
-                </div>
-                <div class="gallery-item">
-                    <div class="gallery-emoji">💖</div>
-                    <h3>Your Heart</h3>
-                    <p>Pure, kind, and incredibly beautiful</p>
-                </div>
-                <div class="gallery-item">
-                    <div class="gallery-emoji">🎵</div>
-                    <h3>Your Voice</h3>
-                    <p>The sweetest sound I know</p>
-                </div>
-                <div class="gallery-item">
-                    <div class="gallery-emoji">✨</div>
-                    <h3>Your Presence</h3>
-                    <p>Everything I need in this world</p>
+            <div class="gallery-grid" id="photoGallery">
+                <!-- Photos will be loaded here dynamically -->
+                <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #D4A574;">
+                    <p style="font-size: 1.1rem;">📁 Add photos to the <code style="background: #f0e6d8; padding: 5px 10px; border-radius: 4px;">images</code> folder to display them here</p>
                 </div>
             </div>
 
@@ -1200,6 +1178,47 @@
                 compareLove();
             }
         });
+
+        async function loadGalleryImages() {
+            try {
+                const response = await fetch('images/manifest.json');
+                if (!response.ok) {
+                    console.log('No manifest.json found');
+                    return;
+                }
+                const manifest = await response.json();
+                const gallery = document.getElementById('photoGallery');
+                
+                if (manifest.images && manifest.images.length > 0) {
+                    gallery.innerHTML = '';
+                    manifest.images.forEach((imagePath, index) => {
+                        const item = document.createElement('div');
+                        item.className = 'gallery-item photo-item';
+                        item.style.overflow = 'hidden';
+                        item.style.cursor = 'pointer';
+                        const img = document.createElement('img');
+                        img.src = imagePath;
+                        img.alt = 'Memory ' + (index + 1);
+                        img.style.width = '100%';
+                        img.style.height = '100%';
+                        img.style.objectFit = 'cover';
+                        img.style.transition = 'transform 0.3s ease';
+                        item.appendChild(img);
+                        item.addEventListener('mouseenter', function() {
+                            this.querySelector('img').style.transform = 'scale(1.05)';
+                        });
+                        item.addEventListener('mouseleave', function() {
+                            this.querySelector('img').style.transform = 'scale(1)';
+                        });
+                        gallery.appendChild(item);
+                    });
+                }
+            } catch (error) {
+                console.log('Gallery placeholder active');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadGalleryImages);
     </script>
 </body>
 </html>
